@@ -1,4 +1,4 @@
-
+let cells = [];
 
 function displayChess() {
     let size = prompt("What size chess board?: ");
@@ -15,18 +15,51 @@ function displayChess() {
                 white.style.width = 50/size + 'vh';
                 white.style.height = 50/size + 'vh';
                 lineDiv.appendChild(white);
+                cells.push(white);
             } else {
                 let black = document.createElement('div');
                 black.className += 'blackChess chess';
                 black.style.width = 50/size + 'vh';
                 black.style.height = 50/size + 'vh';
                 lineDiv.appendChild(black);
+                cells.push(black);
             }
         }
         let newLine = document.createElement('br');
         lineDiv.appendChild(newLine);
         mainDiv.appendChild(lineDiv);
     }
-    return mainDiv; 
+    console.log(cells);
+    requestAnimationFrame(() => animate2(0)); 
+    
 }
 
+
+
+// function animate(time) {
+
+//     let realtime = time/20;
+
+//     let index = Math.floor(realtime) % cells.length;
+
+//     if (cells[index - 1]) {
+//         cells[index - 1].style.backgroundColor = '';
+//     } else {
+//         cells[cells.length - 1].style.backgroundColor = '';
+//     }
+
+//     cells[index].style.backgroundColor = 'red';
+
+//     requestAnimationFrame(() => animate(time + 1));
+
+// }
+
+function animate2(time) {
+
+    let realtime = time/20;
+    let index = Math.floor(realtime) % cells.length;
+    let column = index % Math.sqrt(cells.length);
+    let row = Math.floor(index / Math.sqrt(cells.length));
+   
+    requestAnimationFrame(() => animate2(time + 1));
+}
