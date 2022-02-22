@@ -30,36 +30,58 @@ function displayChess() {
         mainDiv.appendChild(lineDiv);
     }
     console.log(cells);
-    requestAnimationFrame(() => animate2(0)); 
-    
+    requestAnimationFrame(() => animate(0)); 
 }
 
 
 
-// function animate(time) {
+/**
+ * Animate the cells of the array
+ * @param time - The current time in milliseconds.
+ */
+function animate(time){
 
-//     let realtime = time/20;
+    let realtime = time/20;
+    let index = Math.floor(realtime) % cells.length;
+    if (cells[index - 1]) {
+        cells[index - 1].style.backgroundColor = '';
+    } else {
+        cells[cells.length - 1].style.backgroundColor = '';
+    }
+    cells[index].style.backgroundColor = 'yellow';
+    requestAnimationFrame(() => animate(time + 1));
+}
 
-//     let index = Math.floor(realtime) % cells.length;
 
-//     if (cells[index - 1]) {
-//         cells[index - 1].style.backgroundColor = '';
-//     } else {
-//         cells[cells.length - 1].style.backgroundColor = '';
-//     }
 
-//     cells[index].style.backgroundColor = 'red';
-
-//     requestAnimationFrame(() => animate(time + 1));
-
-// }
-
+/**
+ * Animate the cells in the grid by changing their color
+ * @param time - The time in milliseconds since the animation started.
+ */
 function animate2(time) {
 
     let realtime = time/20;
     let index = Math.floor(realtime) % cells.length;
     let column = index % Math.sqrt(cells.length);
     let row = Math.floor(index / Math.sqrt(cells.length));
-   
+    // const board = Math.floor(time / cells.length)
+    //cells[index].style.backgroundColor = (column + row + board)  % 2 === 0 ? "black" : "white" ;
+    cells[index].style.backgroundColor = (column + row)  % 2 === 0 ? "black" : "white" ;
     requestAnimationFrame(() => animate2(time + 1));
+}
+
+
+
+/**
+ * Animate the cells of the grid by changing their background color every 20 milliseconds
+ * @param time - The current time in milliseconds.
+ */
+function animate3(time){
+
+    if (time % 20 === 0) {
+        for (const cell of cells) {
+            cell.style.backgroundColor = cell.style.backgroundColor === 'white' ? 'black' : 'white';
+        }
+    }
+    requestAnimationFrame(() => animate3(time + 1))
 }
