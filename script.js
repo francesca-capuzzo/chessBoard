@@ -131,8 +131,8 @@ function baseAnimation(incrementalTime, lastTime, counter) {
     for (const cell of cells) {
         cell.style.transform = 'rotate(' + (angle * counter) + 'deg)';
     }
-
-    //console.log(delta);                         //--> printa un delta del time iniziale e del time successivo (20 millisecondi di differenza)
-    requestAnimationFrame((incremental) => baseAnimation(incremental, lastTime, counter++)); 
+    //counter++;
+    //console.log(delta);                                                                    //--> printa un delta del time iniziale e del time successivo (20 millisecondi di differenza)
+    requestAnimationFrame((incremental) => baseAnimation(incremental, lastTime, ++counter)); //++counter o (counter + 1) e NON counter++ perchè prima viene chiamato counter e poi incrementato (resta sempre 0)
 }
 
